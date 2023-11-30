@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        int maxVolume = 0;
+        int volume = 0;
+        int l = 0, r = height.size() - 1;
+        while (l < r)
+        {
+            volume = (r - l)*std::min(height.at(r), height.at(l));
+            maxVolume = std::max(maxVolume, volume);
+            if (height.at(l) < height.at(r))
+                l += 1;
+            else
+                r -= 1;
+        }
+        return maxVolume;
+    }
+};
