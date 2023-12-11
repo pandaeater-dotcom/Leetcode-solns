@@ -6,12 +6,12 @@ public:
         int l = 0, r = height.size() - 1;
         while (l < r)
         {
-            volume = (r - l)*std::min(height.at(r), height.at(l));
-            maxVolume = std::max(maxVolume, volume);
+            volume = (r - l)*min(height.at(l), height.at(r));
+            maxVolume = max(maxVolume, volume);
             if (height.at(l) < height.at(r))
-                l += 1;
+                l++;
             else
-                r -= 1;
+                r--; 
         }
         return maxVolume;
     }
