@@ -1,23 +1,16 @@
 class Solution {
 public:
     bool isPalindrome(string s) {
-        int l = 0;
-        int r = s.length() - 1;
-        
-        while (r > l)
-        {
-            if (!isalnum(s.at(l)))
-                l++;
-            else if (!isalnum(s.at(r)))
-                r--;
-            else if (tolower(s.at(l)) != tolower(s.at(r)))
-                return false;
-            else
-            {
-                l++;
-                r--;
-            }
+        string clean_string;
+        for (const auto& chr : s) {
+            if (!isalnum(chr)) continue;
+            clean_string += tolower(chr);
         }
+
+        for (int i = 0; i < clean_string.size()/2; i++) {
+            if (clean_string.at(i) != clean_string.at(clean_string.size() - 1 - i)) return false;
+        }
+
         return true;
     }
 };
