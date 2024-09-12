@@ -8,7 +8,7 @@ public:
         for (char r : s) {
             if (!usedChars.contains(r)) {
                 usedChars.insert(r);
-                maxSubstr = usedChars.size() > maxSubstr ? usedChars.size() : maxSubstr;
+                maxSubstr = max(maxSubstr, (int) usedChars.size());
                 continue;
             }
             while (usedChars.contains(r)) {
