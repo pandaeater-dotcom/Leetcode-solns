@@ -30,10 +30,10 @@ public:
         if (!exists) {
             active.emplace_front(key, value);
             cache[key] = active.begin();
-            return;
+        } else {
+            moveToFront(key);
+            cache[key]->second = value;
         }
-        moveToFront(key);
-        cache[key]->second = value;
     }
 };
 
