@@ -17,13 +17,13 @@ public:
       }
     }
 
+    bool leading = true;
     for (int num : nums) {
+      if (!num && leading) continue;
+      leading = false;
       product += to_string(num);
     }
 
-    if (product.length() > 1 && product[0] == '0') {
-      return product.substr(1);
-    }
     return product;
   }
-}
+};
