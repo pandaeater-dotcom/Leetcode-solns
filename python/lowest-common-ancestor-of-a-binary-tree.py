@@ -6,20 +6,30 @@
 #         self.right = None
 
 class Solution:
-    def hasDescendant(self, root: Optional[TreeNode], d: int) -> bool:
-        if not root:
-            return False
-        if root.val == d:
-            return True
-        return self.hasDescendant(root.left, d) or self.hasDescendant(root.right, d)
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
-        if (root.val == p.val or root.val == q.val):
+        returnNode = None
+
+        def recursiveAncestor(root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> Optional[bool]:
+            nonlocal returnNode
+            if not root:
+                return False
+            leftCheck = recursiveAncestor(root.left, p, q)
+            rightCheck = recursiveAncestor(root.right, p, q)
+
+            if leftCheck is None or rightCheck is None:
+                return None
+
+            elif leftCheck == 1 and rightCheck == 1:
+                returnNode = root
+            elif root.val == p.val or root.val == q.val:
+                if leftCheck or rightCheck:
+                    returnNode = root
+                else:
+                    return True
+            else:
+                return leftCheck or rightCheck
+
+        recursiveAncestor(root, p, q)
+        if not returnNode:
             return root
-        pPos = self.hasDescendant(root.left, p.val)
-        qPos = self.hasDescendant(root.right, q.val)
-        print(root.val, pPos, qPos)
-        if qPos and not pPos:
-            return self.lowestCommonAncestor(root.right, p, q)
-        if not qPos and pPos:
-            return self.lowestCommonAncestor(root.left, p, q)
-        return root
+        return returnNode
